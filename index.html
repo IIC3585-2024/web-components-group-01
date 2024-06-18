@@ -6,11 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Lit</title>
     <link rel="stylesheet" href="./src/index.css" />
-    <script type="module" src="/src/lit/my-element.js"></script>
+    <script type="module" src="/src/lit/todo-list.js"></script>
   </head>
   <body>
-    <my-element>
-      <h1>Vite + Lit</h1>
-    </my-element>
+    <lit-todo-list
+      title="TODO"
+      prompt="Add new list item:"
+      item1="primera"
+      item2="segunda"
+      item3="tercera"
+    ></lit-todo-list>
+    <lit-todo-list
+      title="Lista de compras"
+      prompt="Agregar nuevo producto:"
+      item1="Huevos"
+      item2="Aceite"
+      item3="Harina"
+    ></lit-todo-list>
   </body>
 </html>
