@@ -3,7 +3,7 @@ import addIcon from '../assets/add.svg'
 import completeIcon from '../assets/complete.svg'
 
 class TodoList extends HTMLElement {
-    
+
     constructor() {
         super();
         this.shadow = this.attachShadow({ mode: 'open' });
@@ -104,6 +104,20 @@ class TodoList extends HTMLElement {
             <ul id='todo-list'></ul>
         </div>
         `;
+        const input = document.createElement('div');
+        input.className = 'add-item-bar';
+        input.innerHTML = `
+          <label>${this.getAttribute('prompt')}
+            <input id="new-item-input" type="text" @keypress=${this._handleKeyPress} />
+          </label>
+          <button class="item-button add" @click=${this._addItem}>
+            <img src=${addIcon} alt="Add"/>
+          </button>
+        `
+
+        const todo = this.shadowRoot.getElementById('todo');
+        todo.appendChild(input);
+
         this._render();
     }
 
@@ -132,20 +146,6 @@ class TodoList extends HTMLElement {
         li.querySelector('.item-button.delete').addEventListener('click', () => this._removeItem(i));
         });
 
-        const input = document.createElement('div');
-        input.className = 'add-item-bar';
-        input.innerHTML = `
-          <label>${this.getAttribute('prompt')}
-            <input id="new-item-input" type="text" @keypress=${this._handleKeyPress} />
-          </label>
-          <button class="item-button add" @click=${this._addItem}>
-            <img src=${addIcon} alt="Add"/>
-          </button>
-        `
-
-        const todo = this.shadowRoot.getElementById('todo');
-        todo.appendChild(input);
-
         this.shadow.querySelector('.item-button.add').addEventListener('click', () => this._addItem());
         this.shadow.getElementById('new-item-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
@@ -168,12 +168,12 @@ class TodoList extends HTMLElement {
         this.items[index].completed = !this.items[index].completed;
         this._render();
     }
-    
+
     _removeItem(index) {
         this.items.splice(index, 1);
         this._render();
     }
-    
+
 }
 
 customElements.define('vanilla-todo-list', TodoList);
