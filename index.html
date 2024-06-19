@@ -7,21 +7,22 @@
     <title>Vite + Lit</title>
     <link rel="stylesheet" href="./src/index.css" />
     <script type="module" src="/src/lit/todo-list.js"></script>
+    <script type="module" src="/src/vanilla/todo-list.js"></script>
   </head>
   <body>
     <lit-todo-list
-      title="TODO"
+      title="lit todo list"
       prompt="Add new list item:"
       item1="primera"
       item2="segunda"
       item3="tercera"
     ></lit-todo-list>
-    <lit-todo-list
-      title="Lista de compras"
-      prompt="Agregar nuevo producto:"
-      item1="Huevos"
-      item2="Aceite"
-      item3="Harina"
-    ></lit-todo-list>
+    <vanilla-todo-list
+      title="Vanilla todo list"
+      prompt="Add new list item:"
+      item1="primera"
+      item2="segunda"
+      item3="tercera"
+    ></vanilla-todo-list>
   </body>
 </html>
