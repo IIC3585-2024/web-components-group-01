@@ -1,7 +1,7 @@
 import { html, css, LitElement } from 'https://cdn.jsdelivr.net/gh/lit/dist@2.4.0/core/lit-core.min.js'
-import deleteIcon from './assets/delete.svg'
-import addIcon from './assets/add.svg'
-import completeIcon from './assets/complete.svg'
+import deleteIcon from '../assets/delete.svg'
+import addIcon from '../assets/add.svg'
+import completeIcon from '../assets/complete.svg'
 
 export class TodoList extends LitElement {
   static properties = {
