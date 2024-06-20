@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Lit</title>
+    <title>Web Components</title>
     <link rel="stylesheet" href="./src/index.css" />
-    <script type="module" src="/src/lit/my-element.js"></script>
   </head>
   <body>
-    <my-element>
-      <h1>Vite + Lit</h1>
-      <a href="/sell.html">Ir a Sell Vanilla</a>
-      <a href="/sell-lit.html">Ir a Sell Lit</a>
-    </my-element>
+    <h1>Web Components</h1>
+    <button id="vanilla-components" class="nav-button">Ir a Web Components con JS Vanilla</button>
+    <button id="lit-components" class="nav-button">Ir a Web Components con Lit</button>
+    <h3 id="view-name"></h3>
+    <section id="view" class="fadeIn"></section>
+    <script type="module" src="./index.js"></script>
   </body>
 </html>

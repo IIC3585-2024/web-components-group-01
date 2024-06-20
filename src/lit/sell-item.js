@@ -20,8 +20,8 @@ class SellItem extends LitElement {
         border: 1px solid #ddd;
         border-radius: 8px;
         padding: 16px;
-        width: 300px;
-        height: 550px;
+        width: 18rem;
+        height: 25rem;
         text-align: center;
         font-family: Arial, sans-serif;
         transition: ease;
@@ -32,8 +32,8 @@ class SellItem extends LitElement {
         cursor: pointer;
       }
       .sell-item img {
-        width: 300px;
-        height: 300px;
+        width: 10rem;
+        height: 10rem;
         object-fit: cover;
         border-radius: 8px;
       }
@@ -59,10 +59,11 @@ class SellItem extends LitElement {
         margin: 8px 0;
       }
       .rating {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
         margin: 12px 0;
-      }
-      .star {
-        color: gold;
+        gap: 4px;
       }
     `;
   }
@@ -95,8 +96,8 @@ class SellItem extends LitElement {
               <span
                 class="star"
                 style="color: ${i < this.rating ? "gold" : "#ddd"};"
-                >★</span
-              >
+                >★
+              </span>
             `
           )}
         </div>
@@ -105,4 +106,4 @@ class SellItem extends LitElement {
   }
 }
 
-customElements.define("sell-item", SellItem);
+customElements.define("lit-sell-item", SellItem);

@@ -1,31 +1,97 @@
 class SellItem extends HTMLElement {
+  static properties = [
+    "image",
+    "title",
+    "price",
+    "discounted",
+    "discount",
+    "rating",
+    "discountcolor",
+  ];
+
+  #style = `
+    .sell-item {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      width: 18rem;
+      height: 25rem;
+      text-align: center;
+      color: #000;
+      font-family: Arial, sans-serif;
+      transition: ease;
+      transition-duration: 0.2s;
+      background-color: #fff;
+    }
+    .sell-item:hover {
+      scale: 1.05;
+      cursor: pointer;
+    }
+    .sell-item img {
+      width: 10rem;
+      height: 10rem;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .title {
+      font-size: 18px;
+      margin: 12px 0;
+    }
+    .price {
+      font-size: 16px;
+      color: #888;
+      text-decoration: line-through;
+    }
+    .discounted {
+      font-size: 20px;
+      color: #e74c3c;
+    }
+    .discount {
+      background-color: #e74c3c;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 8px 0;
+    }
+    .rating {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin: 12px 0;
+      gap: 4px;
+    }
+  `;
+
+  #template = `
+    <style>
+      ${this.#style}
+    </style>
+    <div class="sell-item">
+      <img class="image" src="" alt="Product Image" />
+      <div class="title"></div>
+      <div class="price"></div>
+      <div class="discounted"></div>
+      <div class="discount"></div>
+      <div class="rating"></div>
+    </div>
+  `;
+
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
-  }
-
-  connectedCallback() {
-    this.loadTemplate();
+    const shadow = this.attachShadow({ mode: "open" });
+    const template = document.createElement("template");
+    template.innerHTML = this.#template;
+    shadow.appendChild(template.content.cloneNode(true));
   }
 
   static get observedAttributes() {
-    return [
-      "template",
-      "image",
-      "title",
-      "price",
-      "discounted-price",
-      "discount",
-      "rating",
-    ];
+    return this.properties;
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (this.shadowRoot && oldValue !== newValue) {
       switch (name) {
-        case "template":
-          this.loadTemplate();
-          break;
         case "image":
           this.shadowRoot.querySelector(".image").src = newValue;
           break;
@@ -37,9 +103,9 @@ class SellItem extends HTMLElement {
             ".price"
           ).textContent = `Price: $${newValue}`;
           break;
-        case "discounted-price":
+        case "discounted":
           this.shadowRoot.querySelector(
-            ".discounted-price"
+            ".discounted"
           ).textContent = `Discounted Price: $${newValue}`;
           break;
         case "discount":
@@ -50,36 +116,17 @@ class SellItem extends HTMLElement {
         case "rating":
           this.renderStars(newValue);
           break;
+        case "discountcolor":
+          this.shadowRoot.querySelector(".discount").style.backgroundColor =
+            newValue;
+          this.shadowRoot.querySelector(".discounted").style.color = newValue;
+          break;
       }
     }
   }
 
-  loadTemplate() {
-    const templateName = this.getAttribute("template") || "default";
-    const template = document.getElementById(
-      `sell-item-template-${templateName}`
-    );
-    if (template) {
-      this.shadowRoot.innerHTML = "";
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
-      this.updateAttributes();
-    } else {
-      console.warn(
-        `Template with id "sell-item-template-${templateName}" not found.`
-      );
-    }
-  }
-
   updateAttributes() {
-    const attributes = [
-      "image",
-      "title",
-      "price",
-      "discounted-price",
-      "discount",
-      "rating",
-    ];
-    attributes.forEach((attr) => {
+    this.properties.forEach((attr) => {
       const value = this.getAttribute(attr);
       if (value !== null) {
         this.attributeChangedCallback(attr, null, value);
@@ -96,9 +143,7 @@ class SellItem extends HTMLElement {
       const star = document.createElement("span");
       star.textContent = "★";
       star.classList.add("star");
-      if (i >= rating) {
-        star.style.color = "#ddd";
-      }
+      star.style.color = i >= rating ? "#ddd" : "gold";
       ratingContainer.appendChild(star);
     }
   }
