@@ -176,4 +176,4 @@ class TodoList extends HTMLElement {
 
 }
 
-customElements.define('vanilla-todo-list', TodoList);
+customElements.define('todo-list', TodoList);
